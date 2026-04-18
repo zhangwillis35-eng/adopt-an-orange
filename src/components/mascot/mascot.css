@@ -1,0 +1,108 @@
+/* Orange Mascot Animations */
+
+@keyframes mascot-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes mascot-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(6px) rotate(-1.5deg);
+  }
+}
+
+@keyframes mascot-blink {
+  0%, 90%, 100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes mascot-cape-wave {
+  0%, 100% {
+    transform: rotate(0deg) skewX(0deg);
+  }
+  25% {
+    transform: rotate(3deg) skewX(2deg);
+  }
+  50% {
+    transform: rotate(-1deg) skewX(-1deg);
+  }
+  75% {
+    transform: rotate(2deg) skewX(1deg);
+  }
+}
+
+@keyframes mascot-wave-hand {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-20deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+}
+
+@keyframes mascot-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes mascot-leaf-sway {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  33% {
+    transform: rotate(8deg);
+  }
+  66% {
+    transform: rotate(-6deg);
+  }
+}
+
+@keyframes mascot-dots {
+  0%, 20% {
+    content: '.';
+  }
+  40% {
+    content: '..';
+  }
+  60%, 100% {
+    content: '...';
+  }
+}
+
+@keyframes mascot-zzz {
+  0%, 100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(8px, -12px) scale(1);
+  }
+}

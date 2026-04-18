@@ -31,7 +31,9 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
+.env
+.env.local
+.env*.local
 
 # vercel
 .vercel
@@ -41,3 +43,7 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
+
+# 操作记录截图（本地用，不推到 GitHub）
+/操作流程记录/
+橙留香-IP角色互动页.html

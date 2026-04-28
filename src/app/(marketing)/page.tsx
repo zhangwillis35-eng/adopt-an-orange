@@ -192,7 +192,7 @@ export default function HomePage() {
             </div>
 
             <h1 className="animate-fade-up animate-delay-200 font-display text-4xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-5xl lg:text-6xl"
-              style={{ fontFamily: "'ZCOOL XiaoWei', 'Noto Sans SC', serif", letterSpacing: '0.05em' }}>
+              style={{ fontFamily: "'Ma Shan Zheng', 'Noto Sans SC', serif", letterSpacing: '0.05em' }}>
               认养一棵橙
               <br />
               <span className="text-yellow-100 drop-shadow-md"

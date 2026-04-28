@@ -1,9 +1,9 @@
+/* 艺术字体：使用国内可访问的 Google Fonts 镜像（@import 必须置顶） */
+@import url('https://fonts.loli.net/css2?family=ZCOOL+XiaoWei&family=Ma+Shan+Zheng&display=swap');
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-
-/* 艺术字体：使用国内可访问的 Google Fonts 镜像 */
-@import url('https://fonts.loli.net/css2?family=ZCOOL+XiaoWei&family=Ma+Shan+Zheng&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 

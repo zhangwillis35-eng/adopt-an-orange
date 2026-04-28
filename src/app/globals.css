@@ -10,7 +10,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), var(--font-noto-sans-sc), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Microsoft YaHei', '微软雅黑', var(--font-noto-sans-sc), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
   --font-display: 'ZCOOL XiaoWei', 'Ma Shan Zheng', 'Songti SC', serif;
   --font-display-alt: 'Ma Shan Zheng', 'STKaiti', serif;

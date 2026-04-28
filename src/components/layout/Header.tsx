@@ -16,7 +16,8 @@ import {
   DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu'
 import { MobileNav } from './MobileNav'
-import { Menu, User, TreePine, Package, UserCircle, LogOut } from 'lucide-react'
+import { SiteNavPane } from './SiteNavPane'
+import { Menu, PanelLeft, User, TreePine, Package, UserCircle, LogOut } from 'lucide-react'
 
 const navLinks = [
   { href: '/', label: '首页' },
@@ -29,6 +30,7 @@ export function Header() {
   const pathname = usePathname()
   const { data: session, status } = useSession()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [navPaneOpen, setNavPaneOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -48,6 +50,17 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Nav pane trigger — 左上角导航窗格 */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setNavPaneOpen(true)}
+          aria-label="网站导航"
+          className="-ml-1 mr-1 shrink-0 text-muted-foreground hover:text-foreground"
+        >
+          <PanelLeft className="size-[18px]" />
+        </Button>
+
         {/* Logo */}
         <Link href="/" className="shrink-0">
           <MascotLogo />
@@ -152,6 +165,9 @@ export function Header() {
 
         {/* Mobile nav sheet */}
         <MobileNav open={mobileOpen} onOpenChange={setMobileOpen} />
+
+        {/* Site nav pane — 全站导航树（左侧） */}
+        <SiteNavPane open={navPaneOpen} onOpenChange={setNavPaneOpen} />
       </div>
     </header>
   )

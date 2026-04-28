@@ -161,94 +161,99 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {/* ─── Hero ─── */}
-      <section className="section-wave relative overflow-hidden px-4 py-28 text-center sm:py-36" style={{
+      <section className="section-wave relative overflow-hidden px-6 py-20 sm:py-28" style={{
         background: 'linear-gradient(135deg, #F97316 0%, #EA580C 25%, #FFA500 50%, #FB923C 75%, #FFD700 100%)',
       }}>
         {/* Decorative floating orbs */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          {/* Large soft circle top-left */}
           <div className="absolute -left-20 -top-20 h-80 w-80 rounded-full bg-white/8"
             style={{ animation: 'hero-float-1 8s ease-in-out infinite' }} />
-          {/* Medium circle bottom-right */}
           <div className="absolute -bottom-12 -right-12 h-64 w-64 rounded-full bg-white/8"
             style={{ animation: 'hero-float-2 10s ease-in-out infinite' }} />
-          {/* Small floating circles scattered */}
           <div className="absolute left-[15%] top-[20%] h-6 w-6 rounded-full bg-white/20"
             style={{ animation: 'hero-float-3 4s ease-in-out infinite' }} />
           <div className="absolute left-[75%] top-[15%] h-4 w-4 rounded-full bg-white/25"
             style={{ animation: 'hero-float-1 5s ease-in-out infinite 0.5s' }} />
-          <div className="absolute left-[85%] top-[60%] h-5 w-5 rounded-full bg-white/15"
-            style={{ animation: 'hero-float-2 6s ease-in-out infinite 1s' }} />
-          <div className="absolute left-[10%] top-[70%] h-3 w-3 rounded-full bg-white/20"
-            style={{ animation: 'hero-float-3 4.5s ease-in-out infinite 0.3s' }} />
           <div className="absolute left-[55%] top-[80%] h-8 w-8 rounded-full bg-yellow-300/15"
             style={{ animation: 'hero-float-1 7s ease-in-out infinite 2s' }} />
-          {/* Subtle leaf shapes */}
-          <div className="absolute left-[25%] top-[55%] h-16 w-8 rotate-45 rounded-full bg-green-400/10"
-            style={{ animation: 'hero-float-2 9s ease-in-out infinite 1.5s' }} />
-          <div className="absolute left-[70%] top-[35%] h-12 w-6 -rotate-30 rounded-full bg-green-400/8"
-            style={{ animation: 'hero-float-3 7s ease-in-out infinite 0.8s' }} />
         </div>
 
-        <div className="relative mx-auto flex max-w-4xl flex-col items-center gap-6">
-          {/* Glow behind mascot */}
-          <div className="absolute -top-8 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-yellow-300/30 blur-3xl"
-            style={{ animation: 'hero-glow-pulse 4s ease-in-out infinite' }} />
+        {/* Two-column: left text, right product image */}
+        <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-16">
 
-          <div className="animate-scale-in relative">
-            <OrangeMascot
-              size="xl"
-              expression="happy"
-              animation="float"
-              withCape
-            />
+          {/* ── Left: mascot + copy ── */}
+          <div className="flex flex-1 flex-col items-center gap-6 text-center lg:items-start lg:text-left">
+            {/* Glow */}
+            <div className="pointer-events-none absolute -top-8 left-1/4 h-64 w-64 -translate-x-1/2 rounded-full bg-yellow-300/25 blur-3xl lg:left-1/4"
+              style={{ animation: 'hero-glow-pulse 4s ease-in-out infinite' }} />
+
+            <div className="animate-scale-in relative">
+              <OrangeMascot size="lg" expression="happy" animation="float" withCape />
+            </div>
+
+            <h1 className="animate-fade-up animate-delay-200 font-display text-4xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-5xl lg:text-6xl"
+              style={{ fontFamily: "'ZCOOL XiaoWei', 'Noto Sans SC', serif", letterSpacing: '0.05em' }}>
+              认养一棵橙
+              <br />
+              <span className="text-yellow-100 drop-shadow-md"
+                style={{ fontFamily: "'Ma Shan Zheng', 'Noto Sans SC', serif" }}>
+                留住一季香
+              </span>
+            </h1>
+
+            <p className="animate-fade-up animate-delay-300 max-w-md text-base font-medium text-white/90 sm:text-lg"
+              style={{ fontFamily: "'Noto Sans SC', sans-serif" }}>
+              从果园到餐桌，橙留香陪你全程守护每一颗果实的成长
+            </p>
+
+            <div className="animate-fade-up animate-delay-400 flex flex-col gap-3 sm:flex-row">
+              <Link href="/adopt">
+                <Button size="lg"
+                  className="h-13 rounded-full bg-white px-10 text-base font-bold text-[#F97316] shadow-xl shadow-orange-900/20 transition-all hover:scale-105 hover:bg-white hover:shadow-2xl">
+                  <Sparkles className="mr-2 size-4" />
+                  立即认养
+                </Button>
+              </Link>
+              <Link href="/about">
+                <Button variant="outline" size="lg"
+                  className="h-13 rounded-full border-2 border-white/50 bg-white/10 px-10 text-base font-semibold text-white backdrop-blur-sm transition-all hover:border-white/80 hover:bg-white/20">
+                  了解更多
+                </Button>
+              </Link>
+            </div>
+
+            {/* Trust indicators */}
+            <div className="animate-fade-up animate-delay-500 flex flex-wrap items-center justify-center gap-5 text-sm text-white/80 lg:justify-start">
+              <span className="flex items-center gap-1.5"><Shield className="size-4" /> 品质保障</span>
+              <span className="flex items-center gap-1.5"><Truck className="size-4" /> 产地直发</span>
+              <span className="flex items-center gap-1.5"><Star className="size-4 fill-current" /> 10000+ 用户信赖</span>
+            </div>
           </div>
 
-          <h1 className="animate-fade-up animate-delay-200 font-display text-4xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-6xl" style={{ fontFamily: "'ZCOOL XiaoWei', 'Noto Sans SC', serif", letterSpacing: '0.05em' }}>
-            认养一棵橙
-            <br />
-            <span className="text-yellow-100 drop-shadow-md" style={{ fontFamily: "'Ma Shan Zheng', 'Noto Sans SC', serif" }}>
-              留住一季香
-            </span>
-          </h1>
-
-          <p className="animate-fade-up animate-delay-300 max-w-lg text-lg font-medium text-white/90 sm:text-xl" style={{ fontFamily: "'Noto Sans SC', sans-serif" }}>
-            从果园到餐桌，橙留香陪你全程守护每一颗果实的成长
-          </p>
-
-          <div className="animate-fade-up animate-delay-400 flex flex-col gap-3 sm:flex-row">
-            <Link href="/adopt">
-              <Button
-                size="lg"
-                className="h-13 rounded-full bg-white px-10 text-base font-bold text-[#F97316] shadow-xl shadow-orange-900/20 transition-all hover:scale-105 hover:bg-white hover:shadow-2xl"
-              >
-                <Sparkles className="mr-2 size-4" />
-                立即认养
-              </Button>
-            </Link>
-            <Link href="/about">
-              <Button
-                variant="outline"
-                size="lg"
-                className="h-13 rounded-full border-2 border-white/50 bg-white/10 px-10 text-base font-semibold text-white backdrop-blur-sm transition-all hover:border-white/80 hover:bg-white/20"
-              >
-                了解更多
-              </Button>
-            </Link>
+          {/* ── Right: product box image ── */}
+          <div className="animate-fade-up animate-delay-300 relative flex-shrink-0 lg:flex-1">
+            {/* Glow behind box */}
+            <div className="absolute inset-4 rounded-3xl bg-yellow-300/20 blur-2xl" />
+            <div className="relative overflow-hidden rounded-3xl shadow-2xl shadow-orange-900/30"
+              style={{ animation: 'hero-float-2 8s ease-in-out infinite' }}>
+              <Image
+                src={images.coverBox}
+                alt="赣南脐橙家庭认养礼盒"
+                width={600}
+                height={450}
+                className="w-full object-cover"
+                priority
+              />
+              {/* Shine overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
+            </div>
+            {/* Floating badge */}
+            <div className="absolute -right-3 -top-3 rounded-2xl bg-white px-4 py-2 shadow-lg shadow-orange-200/40">
+              <p className="text-xs font-bold text-[#F97316]">🌱 产地直发</p>
+              <p className="text-[10px] text-neutral-500">赣南脐橙原产地</p>
+            </div>
           </div>
 
-          {/* Trust indicators */}
-          <div className="animate-fade-up animate-delay-500 mt-4 flex flex-wrap items-center justify-center gap-6 text-sm text-white/80">
-            <span className="flex items-center gap-1.5">
-              <Shield className="size-4" /> 品质保障
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Truck className="size-4" /> 产地直发
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Star className="size-4 fill-current" /> 10000+ 用户信赖
-            </span>
-          </div>
         </div>
       </section>
 

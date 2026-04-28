@@ -1,39 +1,48 @@
-// 免费可商用图片资源 (Unsplash)
-// 所有图片均来自 Unsplash，免费商用无需署名
+// 品牌自有图片资源（本地 public/images/）
 
 export const images = {
-  // 橙子特写 — 用于套餐卡片、产品展示
-  orangeCloseup1: "https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=800&q=80",
-  orangeCloseup2: "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=800&q=80",
-  orangeCloseup3: "https://images.unsplash.com/photo-1547514701-42782101795e?w=800&q=80",
+  // ── 封面/Hero ──────────────────────────────────────────
+  /** 赣南脐橙家庭认养礼盒（俯视）— Hero 右侧产品主图 */
+  coverBox: '/images/cover-box.png',
 
-  // 橙树/果园 — 用于 Hero 背景、果园展示
-  orangeTree1: "https://images.unsplash.com/photo-1564750497011-ead0ce4b9448?w=1200&q=80",
-  orangeTree2: "https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=1200&q=80",
-  orangeOrchard1: "https://images.unsplash.com/photo-1501004318855-dc2ecb527c4b?w=1200&q=80",
+  // ── 套餐展示图 ─────────────────────────────────────────
+  /** 切开脐橙特写 — 尝鲜套餐 */
+  orangeCloseup1: '/images/oranges-halved.jpg',
+  /** 饱满橙子堆 — 家庭套餐 */
+  orangeCloseup2: '/images/oranges-closeup.jpg',
+  /** 礼盒正面展示 — 豪华套餐 */
+  orangeCloseup3: '/images/box-side.jpg',
 
-  // 果园风景 — 用于果园动态、关于页面
-  orchardLandscape: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&q=80",
-  orchardSunset: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&q=80",
+  // ── 果园实景 ───────────────────────────────────────────
+  /** 密集橙树 — 果园实景 */
+  orangeTree1: '/images/orchard-trees.jpg',
+  /** 橙树下野餐 — 橙树养护 */
+  orangeTree2: '/images/orchard-picnic.jpg',
 
-  // 采摘/收获 — 用于流程展示
-  harvest1: "https://images.unsplash.com/photo-1595272568891-123402d0fb3b?w=800&q=80",
-  harvest2: "https://images.unsplash.com/photo-1557800636-894a64c1696f?w=800&q=80",
+  // ── 产区风景 ───────────────────────────────────────────
+  /** 采摘篮+橙树 — 产区全景（宽幅用） */
+  orchardLandscape: '/images/harvest-basket.jpg',
+  /** 大山+橙树江景 — 关于我们/背景 */
+  orchardSunset: '/images/orchard-mountain.jpg',
 
-  // 橙汁/切面 — 用于装饰
-  orangeSlice: "https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=800&q=80",
-  orangeJuice: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=800&q=80",
+  // ── 采摘/收获 ─────────────────────────────────────────
+  harvest1: '/images/harvest-basket.jpg',
+  harvest2: '/images/orchard-picnic.jpg',
+
+  // ── 橙子特写 ──────────────────────────────────────────
+  orangeSlice:  '/images/oranges-halved.jpg',
+  orangeJuice:  '/images/oranges-closeup.jpg',
 } as const
 
 // 套餐对应图片
 export const planImages = {
-  "plan-1": images.orangeCloseup1, // 尝鲜套餐
-  "plan-2": images.orangeCloseup2, // 家庭套餐
-  "plan-3": images.orangeCloseup3, // 豪华套餐
+  'plan-1': images.orangeCloseup1, // 尝鲜套餐 — 切橙特写
+  'plan-2': images.orangeCloseup2, // 家庭套餐 — 橙子堆
+  'plan-3': images.orangeCloseup3, // 豪华套餐 — 礼盒正面
 } as Record<string, string>
 
 // 果园对应图片
 export const orchardImages = {
-  orchard1: images.orangeOrchard1,
+  orchard1: images.orangeTree1,
   orchard2: images.orchardLandscape,
 } as Record<string, string>

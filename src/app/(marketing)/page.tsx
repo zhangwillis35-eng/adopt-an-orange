@@ -162,7 +162,7 @@ export default function HomePage() {
       />
       {/* ─── Hero ─── */}
       <section className="section-wave relative overflow-hidden px-4 py-28 text-center sm:py-36" style={{
-        background: 'linear-gradient(135deg, #FF6B00 0%, #FF8C00 25%, #FFA500 50%, #FFB84D 75%, #FFD700 100%)',
+        background: 'linear-gradient(135deg, #F97316 0%, #EA580C 25%, #FFA500 50%, #FB923C 75%, #FFD700 100%)',
       }}>
         {/* Decorative floating orbs */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -204,15 +204,15 @@ export default function HomePage() {
             />
           </div>
 
-          <h1 className="animate-fade-up animate-delay-200 text-4xl font-extrabold leading-tight tracking-tight text-white drop-shadow-lg sm:text-6xl">
-            认养一棵橙树
+          <h1 className="animate-fade-up animate-delay-200 font-display text-4xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-6xl" style={{ fontFamily: "'ZCOOL XiaoWei', 'Noto Sans SC', serif", letterSpacing: '0.05em' }}>
+            认养一棵橙
             <br />
-            <span className="text-yellow-100 drop-shadow-md">
-              收获一份自然
+            <span className="text-yellow-100 drop-shadow-md" style={{ fontFamily: "'Ma Shan Zheng', 'Noto Sans SC', serif" }}>
+              留住一季香
             </span>
           </h1>
 
-          <p className="animate-fade-up animate-delay-300 max-w-lg text-lg font-medium text-white/90 sm:text-xl">
+          <p className="animate-fade-up animate-delay-300 max-w-lg text-lg font-medium text-white/90 sm:text-xl" style={{ fontFamily: "'Noto Sans SC', sans-serif" }}>
             从果园到餐桌，橙留香陪你全程守护每一颗果实的成长
           </p>
 
@@ -220,7 +220,7 @@ export default function HomePage() {
             <Link href="/adopt">
               <Button
                 size="lg"
-                className="h-13 rounded-full bg-white px-10 text-base font-bold text-[#FF6B00] shadow-xl shadow-orange-900/20 transition-all hover:scale-105 hover:bg-white hover:shadow-2xl"
+                className="h-13 rounded-full bg-white px-10 text-base font-bold text-[#F97316] shadow-xl shadow-orange-900/20 transition-all hover:scale-105 hover:bg-white hover:shadow-2xl"
               >
                 <Sparkles className="mr-2 size-4" />
                 立即认养
@@ -272,11 +272,11 @@ export default function HomePage() {
       <section className="bg-background px-4 pb-20 pt-28">
         <div className="mx-auto max-w-5xl">
           <div className="animate-fade-up mb-4 text-center">
-            <span className="inline-block rounded-full bg-orange-100 px-4 py-1.5 text-sm font-semibold text-[#FF6B00]">
+            <span className="inline-block rounded-full bg-orange-100 px-4 py-1.5 text-sm font-semibold text-[#F97316]">
               简单四步
             </span>
           </div>
-          <h2 className="animate-fade-up animate-delay-100 mb-4 text-center text-2xl font-extrabold sm:text-4xl">
+          <h2 className="animate-fade-up animate-delay-100 mb-4 text-center text-2xl font-extrabold sm:text-4xl" style={{ fontFamily: "'ZCOOL XiaoWei', 'Noto Sans SC', serif", letterSpacing: '0.05em' }}>
             认养，就是这么简单
           </h2>
           <p className="animate-fade-up animate-delay-200 mx-auto mb-14 max-w-md text-center text-muted-foreground">
@@ -296,11 +296,11 @@ export default function HomePage() {
                   <div className="absolute -left-4 top-10 hidden h-[2px] w-8 bg-gradient-to-r from-orange-200 to-orange-300 lg:block" />
                 )}
 
-                <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-50 to-orange-100 text-[#FF6B00] shadow-md shadow-orange-100 transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-gradient-to-br group-hover:from-[#FF6B00] group-hover:to-[#FF8C00] group-hover:text-white group-hover:shadow-lg group-hover:shadow-orange-200">
+                <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-50 to-orange-100 text-[#F97316] shadow-md shadow-orange-100 transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-gradient-to-br group-hover:from-[#F97316] group-hover:to-[#EA580C] group-hover:text-white group-hover:shadow-lg group-hover:shadow-orange-200">
                   <step.icon className="size-8" />
                 </div>
 
-                <span className="mb-2 inline-block rounded-full bg-orange-50 px-3 py-0.5 text-xs font-bold tracking-wider text-[#FF6B00]">
+                <span className="mb-2 inline-block rounded-full bg-orange-50 px-3 py-0.5 text-xs font-bold tracking-wider text-[#F97316]">
                   STEP {i + 1}
                 </span>
                 <h3 className="mb-1 text-lg font-bold">{step.title}</h3>
@@ -315,11 +315,11 @@ export default function HomePage() {
       <section className="bg-gradient-to-b from-orange-50/80 to-background px-4 py-20">
         <div className="mx-auto max-w-5xl">
           <div className="animate-fade-up mb-4 text-center">
-            <span className="inline-block rounded-full bg-orange-100 px-4 py-1.5 text-sm font-semibold text-[#FF6B00]">
+            <span className="inline-block rounded-full bg-orange-100 px-4 py-1.5 text-sm font-semibold text-[#F97316]">
               精选方案
             </span>
           </div>
-          <h2 className="animate-fade-up animate-delay-100 mb-4 text-center text-2xl font-extrabold sm:text-4xl">
+          <h2 className="animate-fade-up animate-delay-100 mb-4 text-center text-2xl font-extrabold sm:text-4xl" style={{ fontFamily: "'ZCOOL XiaoWei', 'Noto Sans SC', serif", letterSpacing: '0.05em' }}>
             精选认养套餐
           </h2>
           <p className="animate-fade-up animate-delay-200 mx-auto mb-14 max-w-md text-center text-muted-foreground">
@@ -334,12 +334,12 @@ export default function HomePage() {
                   idx === 0 ? 'animate-delay-200' : idx === 1 ? 'animate-delay-300' : 'animate-delay-400'
                 } ${
                   plan.recommended
-                    ? 'card-recommended card-recommended-hover border-2 border-[#FF6B00] shadow-xl shadow-orange-200/50 lg:scale-105'
+                    ? 'card-recommended card-recommended-hover border-2 border-[#F97316] shadow-xl shadow-orange-200/50 lg:scale-105'
                     : 'border border-orange-100'
                 }`}
               >
                 {plan.recommended && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-[#FF6B00] to-[#FF8C00] px-5 py-1 text-xs font-bold text-white shadow-lg shadow-orange-300/50">
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-[#F97316] to-[#EA580C] px-5 py-1 text-xs font-bold text-white shadow-lg shadow-orange-300/50">
                     最受欢迎
                   </span>
                 )}
@@ -352,7 +352,7 @@ export default function HomePage() {
                 <CardContent className="flex flex-col items-center gap-5">
                   <div className="flex items-baseline gap-1">
                     <span className="text-base text-muted-foreground">&#xA5;</span>
-                    <span className={`text-5xl font-extrabold ${plan.recommended ? 'text-[#FF6B00]' : 'text-foreground'}`}>
+                    <span className={`text-5xl font-extrabold ${plan.recommended ? 'text-[#F97316]' : 'text-foreground'}`}>
                       {plan.price}
                     </span>
                     <span className="text-sm text-muted-foreground">/年</span>
@@ -364,7 +364,7 @@ export default function HomePage() {
                         key={f}
                         className="flex items-center gap-2.5 text-sm text-muted-foreground"
                       >
-                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-orange-100 text-[#FF6B00]">
+                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-orange-100 text-[#F97316]">
                           <ChevronRight className="size-3" />
                         </div>
                         {f}
@@ -377,8 +377,8 @@ export default function HomePage() {
                     <Button
                       className={`w-full rounded-full py-6 text-base font-bold transition-all ${
                         plan.recommended
-                          ? 'bg-gradient-to-r from-[#FF6B00] to-[#FF8C00] shadow-lg shadow-orange-300/40 hover:shadow-xl hover:shadow-orange-300/50'
-                          : 'border-2 border-orange-200 bg-transparent text-[#FF6B00] hover:bg-orange-50'
+                          ? 'bg-gradient-to-r from-[#F97316] to-[#EA580C] shadow-lg shadow-orange-300/40 hover:shadow-xl hover:shadow-orange-300/50'
+                          : 'border-2 border-orange-200 bg-transparent text-[#F97316] hover:bg-orange-50'
                       }`}
                       variant={plan.recommended ? 'default' : 'outline'}
                     >
@@ -400,7 +400,7 @@ export default function HomePage() {
               <span className="inline-block rounded-full bg-green-100 px-4 py-1.5 text-sm font-semibold text-green-700">
                 赣南果园
               </span>
-              <h2 className="text-2xl font-extrabold sm:text-4xl">
+              <h2 className="text-2xl font-extrabold sm:text-4xl" style={{ fontFamily: "'ZCOOL XiaoWei', 'Noto Sans SC', serif", letterSpacing: '0.05em' }}>
                 走进我们的果园
               </h2>
               <p className="text-base leading-relaxed text-muted-foreground">
@@ -409,7 +409,7 @@ export default function HomePage() {
               </p>
               <Link
                 href="/orchard"
-                className="group inline-flex items-center gap-2 text-sm font-bold text-[#FF6B00] transition-colors hover:text-[#E05500]"
+                className="group inline-flex items-center gap-2 text-sm font-bold text-[#F97316] transition-colors hover:text-[#C2410C]"
               >
                 查看更多动态
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
@@ -419,7 +419,7 @@ export default function HomePage() {
             <div className="animate-fade-up animate-delay-300 grid flex-1 grid-cols-2 gap-4">
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
                 <Image src={images.orangeTree1} alt="果园实景" fill className="object-cover transition-transform duration-500 hover:scale-110" />
-                <div className="absolute bottom-3 left-3 rounded-lg bg-white/80 px-2.5 py-1 text-xs font-semibold text-[#FF6B00] backdrop-blur-sm">
+                <div className="absolute bottom-3 left-3 rounded-lg bg-white/80 px-2.5 py-1 text-xs font-semibold text-[#F97316] backdrop-blur-sm">
                   果园实景
                 </div>
               </div>
@@ -432,7 +432,7 @@ export default function HomePage() {
               <div className="relative col-span-2 aspect-[2/1] overflow-hidden rounded-2xl shadow-lg">
                 <Image src={images.orchardLandscape} alt="赣南脐橙产区全景" fill className="object-cover transition-transform duration-500 hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                <div className="absolute bottom-3 left-3 rounded-lg bg-white/80 px-2.5 py-1 text-xs font-semibold text-[#FF6B00] backdrop-blur-sm">
+                <div className="absolute bottom-3 left-3 rounded-lg bg-white/80 px-2.5 py-1 text-xs font-semibold text-[#F97316] backdrop-blur-sm">
                   赣南脐橙产区全景
                 </div>
               </div>
@@ -446,9 +446,9 @@ export default function HomePage() {
 
       {/* ─── CTA Banner ─── */}
       <section className="px-4 py-16">
-        <div className="mx-auto max-w-4xl overflow-hidden rounded-3xl bg-gradient-to-r from-[#FF6B00] via-[#FF8C00] to-[#FFB84D] px-8 py-14 text-center shadow-2xl shadow-orange-200/40 sm:px-16">
+        <div className="mx-auto max-w-4xl overflow-hidden rounded-3xl bg-gradient-to-r from-[#F97316] via-[#EA580C] to-[#FB923C] px-8 py-14 text-center shadow-2xl shadow-orange-200/40 sm:px-16">
           <div className="mx-auto max-w-xl">
-            <h2 className="mb-4 text-2xl font-extrabold text-white sm:text-3xl">
+            <h2 className="mb-4 text-2xl font-extrabold text-white sm:text-3xl" style={{ fontFamily: "'ZCOOL XiaoWei', 'Noto Sans SC', serif", letterSpacing: '0.05em' }}>
               开启你的认养之旅
             </h2>
             <p className="mb-8 text-white/90">
@@ -457,7 +457,7 @@ export default function HomePage() {
             <Link href="/adopt">
               <Button
                 size="lg"
-                className="h-13 rounded-full bg-white px-12 text-base font-bold text-[#FF6B00] shadow-xl transition-all hover:scale-105 hover:bg-white"
+                className="h-13 rounded-full bg-white px-12 text-base font-bold text-[#F97316] shadow-xl transition-all hover:scale-105 hover:bg-white"
               >
                 <Sparkles className="mr-2 size-4" />
                 立即认养

@@ -116,7 +116,7 @@ export function ReviewSection() {
 
   const fetchReviews = useCallback(async () => {
     try {
-      const res = await fetch("/api/v1/reviews?limit=12")
+      const res = await fetch("/api/v1/reviews")
       const data = await res.json()
       setReviews(data.reviews)
       setTotal(data.total)
@@ -189,8 +189,8 @@ export function ReviewSection() {
       }
 
       const newReview: Review = await res.json()
-      // Prepend new review, keep max 6
-      setReviews((prev) => [newReview, ...prev].slice(0, 6))
+      // Prepend new review, keep all
+      setReviews((prev) => [newReview, ...prev])
       setTotal((prev) => prev + 1)
       setAverageRating((prev) => {
         const newTotal = total + 1

@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from "react"
 import { useSession } from "next-auth/react"
-import { Star, MessageSquarePlus, ChevronDown, ChevronUp } from "lucide-react"
+import { Star, MessageSquarePlus, ChevronDown, ChevronUp, Filter } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -66,6 +66,9 @@ export function ReviewSection() {
   const [submitting, setSubmitting] = useState(false)
   const [formError, setFormError] = useState("")
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  // 星级筛选：0 = 全部
+  const [filterRating, setFilterRating] = useState(0)
 
   // 展开/收起状态
   const [expanded, setExpanded] = useState(false)
@@ -178,6 +181,17 @@ export function ReviewSection() {
     } finally {
       setSubmitting(false)
     }
+  }
+
+  // 筛选后的评论
+  const filteredReviews = filterRating === 0
+    ? reviews
+    : reviews.filter((r) => r.rating === filterRating)
+
+  // 各星级评论数量
+  const ratingCounts = [0, 0, 0, 0, 0, 0] // index 0 unused, 1-5 for stars
+  for (const r of reviews) {
+    if (r.rating >= 1 && r.rating <= 5) ratingCounts[r.rating]++
   }
 
   const DELAY_CLASSES = [
@@ -319,6 +333,38 @@ export function ReviewSection() {
           </Dialog>
         </div>
 
+        {/* Star rating filter */}
+        {!loading && reviews.length > 0 && (
+          <div className="animate-fade-up animate-delay-300 mb-8 flex flex-wrap items-center justify-center gap-2">
+            <Filter className="mr-1 size-4 text-muted-foreground" />
+            <button
+              onClick={() => { setFilterRating(0); setExpanded(false) }}
+              className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
+                filterRating === 0
+                  ? "bg-[#FF6B00] text-white shadow-md"
+                  : "bg-orange-50 text-muted-foreground hover:bg-orange-100 hover:text-[#FF6B00]"
+              }`}
+            >
+              全部 ({reviews.length})
+            </button>
+            {[5, 4, 3, 2, 1].map((star) => (
+              ratingCounts[star] > 0 && (
+                <button
+                  key={star}
+                  onClick={() => { setFilterRating(star); setExpanded(false) }}
+                  className={`flex items-center gap-1 rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
+                    filterRating === star
+                      ? "bg-[#FF6B00] text-white shadow-md"
+                      : "bg-orange-50 text-muted-foreground hover:bg-orange-100 hover:text-[#FF6B00]"
+                  }`}
+                >
+                  {star}<Star className="size-3 fill-current" /> ({ratingCounts[star]})
+                </button>
+              )
+            ))}
+          </div>
+        )}
+
         {/* Review cards grid */}
         {loading ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -343,37 +389,45 @@ export function ReviewSection() {
           </div>
         ) : (
           <>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {(expanded ? reviews : reviews.slice(0, INITIAL_SHOW)).map((r, idx) => (
-                <ReviewCard
-                  key={r.id}
-                  review={r}
-                  isNew={r.id === newReviewId}
-                  className={`animate-fade-up ${DELAY_CLASSES[Math.min(idx, DELAY_CLASSES.length - 1)]}`}
-                />
-              ))}
-            </div>
+            {filteredReviews.length === 0 ? (
+              <p className="py-12 text-center text-muted-foreground">
+                暂无 {filterRating} 星评价
+              </p>
+            ) : (
+              <>
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {(expanded ? filteredReviews : filteredReviews.slice(0, INITIAL_SHOW)).map((r, idx) => (
+                    <ReviewCard
+                      key={r.id}
+                      review={r}
+                      isNew={r.id === newReviewId}
+                      className={`animate-fade-up ${DELAY_CLASSES[Math.min(idx, DELAY_CLASSES.length - 1)]}`}
+                    />
+                  ))}
+                </div>
 
-            {reviews.length > INITIAL_SHOW && (
-              <div className="mt-8 flex justify-center">
-                <Button
-                  variant="outline"
-                  className="rounded-full border-orange-200 px-8 text-[#FF6B00] hover:bg-orange-50 hover:text-[#FF6B00]"
-                  onClick={() => setExpanded(!expanded)}
-                >
-                  {expanded ? (
-                    <>
-                      <ChevronUp className="mr-2 size-4" />
-                      收起评价
-                    </>
-                  ) : (
-                    <>
-                      <ChevronDown className="mr-2 size-4" />
-                      查看更多评价（共 {reviews.length} 条）
-                    </>
-                  )}
-                </Button>
-              </div>
+                {filteredReviews.length > INITIAL_SHOW && (
+                  <div className="mt-8 flex justify-center">
+                    <Button
+                      variant="outline"
+                      className="rounded-full border-orange-200 px-8 text-[#FF6B00] hover:bg-orange-50 hover:text-[#FF6B00]"
+                      onClick={() => setExpanded(!expanded)}
+                    >
+                      {expanded ? (
+                        <>
+                          <ChevronUp className="mr-2 size-4" />
+                          收起评价
+                        </>
+                      ) : (
+                        <>
+                          <ChevronDown className="mr-2 size-4" />
+                          查看更多评价（共 {filteredReviews.length} 条）
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                )}
+              </>
             )}
           </>
         )}

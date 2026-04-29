@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react"
 import { useSession } from "next-auth/react"
-import { Star, MessageSquarePlus } from "lucide-react"
+import { Star, MessageSquarePlus, ChevronDown, ChevronUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -110,9 +110,13 @@ export function ReviewSection() {
   const [submitting, setSubmitting] = useState(false)
   const [formError, setFormError] = useState("")
 
+  // 展开/收起状态
+  const [expanded, setExpanded] = useState(false)
+  const INITIAL_SHOW = 3
+
   const fetchReviews = useCallback(async () => {
     try {
-      const res = await fetch("/api/v1/reviews?limit=6")
+      const res = await fetch("/api/v1/reviews?limit=12")
       const data = await res.json()
       setReviews(data.reviews)
       setTotal(data.total)
@@ -358,62 +362,87 @@ export function ReviewSection() {
             ))}
           </div>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {reviews.map((r, idx) => (
-              <Card
-                key={r.id}
-                className={`card-hover animate-fade-up border-orange-100 transition-all duration-500 ${
-                  idx === 0
-                    ? "animate-delay-200"
-                    : idx === 1
-                      ? "animate-delay-300"
-                      : idx === 2
-                        ? "animate-delay-400"
-                        : idx === 3
-                          ? "animate-delay-500"
-                          : idx === 4
-                            ? "animate-delay-600"
-                            : "animate-delay-700"
-                } ${r.id === newReviewId ? "animate-slide-in-from-top ring-2 ring-[#FF6B00]/30" : ""}`}
-              >
-                <CardContent className="space-y-4 pt-6">
-                  {/* User info */}
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white shadow-md ${getAvatarColor(r.userName)}`}
+          <>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {(expanded ? reviews : reviews.slice(0, INITIAL_SHOW)).map((r, idx) => (
+                <Card
+                  key={r.id}
+                  className={`card-hover animate-fade-up border-orange-100 transition-all duration-500 ${
+                    idx === 0
+                      ? "animate-delay-200"
+                      : idx === 1
+                        ? "animate-delay-300"
+                        : idx === 2
+                          ? "animate-delay-400"
+                          : idx === 3
+                            ? "animate-delay-500"
+                            : idx === 4
+                              ? "animate-delay-600"
+                              : "animate-delay-700"
+                  } ${r.id === newReviewId ? "animate-slide-in-from-top ring-2 ring-[#FF6B00]/30" : ""}`}
+                >
+                  <CardContent className="space-y-4 pt-6">
+                    {/* User info */}
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white shadow-md ${getAvatarColor(r.userName)}`}
+                      >
+                        {r.userName[0]}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-bold">{r.userName}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {r.location}
+                        </p>
+                      </div>
+                      <span className="shrink-0 text-xs text-muted-foreground">
+                        {relativeTime(r.createdAt)}
+                      </span>
+                    </div>
+
+                    {/* Stars */}
+                    <StarRating value={r.rating} readonly size="sm" />
+
+                    {/* Content */}
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      &ldquo;{r.content}&rdquo;
+                    </p>
+
+                    {/* Plan badge */}
+                    <Badge
+                      variant="secondary"
+                      className="bg-orange-50 text-[#FF6B00]"
                     >
-                      {r.userName[0]}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-bold">{r.userName}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {r.location}
-                      </p>
-                    </div>
-                    <span className="shrink-0 text-xs text-muted-foreground">
-                      {relativeTime(r.createdAt)}
-                    </span>
-                  </div>
+                      {r.planName}
+                    </Badge>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
 
-                  {/* Stars */}
-                  <StarRating value={r.rating} readonly size="sm" />
-
-                  {/* Content */}
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    &ldquo;{r.content}&rdquo;
-                  </p>
-
-                  {/* Plan badge */}
-                  <Badge
-                    variant="secondary"
-                    className="bg-orange-50 text-[#FF6B00]"
-                  >
-                    {r.planName}
-                  </Badge>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+            {/* 展开/收起按钮 */}
+            {reviews.length > INITIAL_SHOW && (
+              <div className="mt-8 flex justify-center">
+                <Button
+                  variant="outline"
+                  className="rounded-full border-orange-200 px-8 text-[#FF6B00] hover:bg-orange-50 hover:text-[#FF6B00]"
+                  onClick={() => setExpanded(!expanded)}
+                >
+                  {expanded ? (
+                    <>
+                      <ChevronUp className="mr-2 size-4" />
+                      收起评价
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown className="mr-2 size-4" />
+                      查看更多评价（共 {reviews.length} 条）
+                    </>
+                  )}
+                </Button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>

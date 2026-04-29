@@ -125,6 +125,7 @@ model User {
   adoptions Adoption[]
   accounts  Account[]
   sessions  Session[]
+  reviews   Review[]
 }
 
 model Address {
@@ -273,6 +274,23 @@ model Shipment {
   updatedAt       DateTime       @updatedAt
 
   adoption Adoption @relation(fields: [adoptionId], references: [id], onDelete: Cascade)
+}
+
+// ─── Review ──────────────────────────────────────────────
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  userName  String
+  location  String
+  rating    Int      @db.SmallInt
+  content   String   @db.Text
+  planName  String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([createdAt(sort: Desc)])
 }
 
 // ─── Orchard Update ──────────────────────────────────────

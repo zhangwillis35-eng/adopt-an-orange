@@ -20,9 +20,11 @@ export async function GET(request: NextRequest) {
   const limitParam = searchParams.get("limit")
   const limit = limitParam ? parseInt(limitParam, 10) : undefined
 
-  const reviews = getReviews(limit)
-  const total = getReviewCount()
-  const averageRating = getAverageRating()
+  const [reviews, total, averageRating] = await Promise.all([
+    getReviews(limit),
+    getReviewCount(),
+    getAverageRating(),
+  ])
 
   return NextResponse.json({ reviews, total, averageRating })
 }
@@ -45,7 +47,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const review = addReview({
+    const review = await addReview({
       userId: session.user.id,
       userName: session.user.name || "匿名用户",
       location: parsed.data.location,

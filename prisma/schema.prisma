@@ -125,7 +125,6 @@ model User {
   adoptions Adoption[]
   accounts  Account[]
   sessions  Session[]
-  reviews   Review[]
 }
 
 model Address {
@@ -287,8 +286,6 @@ model Review {
   content   String   @db.Text
   planName  String
   createdAt DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([createdAt(sort: Desc)])
 }

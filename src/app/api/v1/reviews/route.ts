@@ -56,7 +56,9 @@ export async function POST(request: NextRequest) {
     })
 
     return NextResponse.json(review, { status: 201 })
-  } catch {
-    return NextResponse.json({ error: "请求格式错误" }, { status: 400 })
+  } catch (err) {
+    console.error("Review POST error:", err)
+    const message = err instanceof Error ? err.message : "请求格式错误"
+    return NextResponse.json({ error: message }, { status: 400 })
   }
 }

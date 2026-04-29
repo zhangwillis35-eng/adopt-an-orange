@@ -287,7 +287,35 @@ model Review {
   planName  String
   createdAt DateTime @default(now())
 
+  likes   ReviewLike[]
+  replies ReviewReply[]
+
   @@index([createdAt(sort: Desc)])
+}
+
+model ReviewLike {
+  id        String   @id @default(cuid())
+  reviewId  String
+  visitorId String
+  createdAt DateTime @default(now())
+
+  review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@unique([reviewId, visitorId])
+  @@index([reviewId])
+}
+
+model ReviewReply {
+  id        String   @id @default(cuid())
+  reviewId  String
+  userId    String
+  userName  String
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+
+  review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId, createdAt])
 }
 
 // ─── Orchard Update ──────────────────────────────────────

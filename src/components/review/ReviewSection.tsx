@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback, useRef } from "react"
 import { useSession } from "next-auth/react"
 import { Star, MessageSquarePlus, ChevronDown, ChevronUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -8,7 +8,6 @@ import {
   Card,
   CardContent,
 } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
@@ -29,6 +28,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { StarRating } from "@/components/review/StarRating"
+import { ReviewCard } from "@/components/review/ReviewCard"
+import { EmojiPickerButton } from "@/components/review/EmojiPickerButton"
 
 /* ────────────────────────── types ────────────────────────── */
 
@@ -36,57 +37,12 @@ interface Review {
   id: string
   userId: string
   userName: string
-  userAvatar: string | null
   location: string
   rating: number
   content: string
   planName: string
   createdAt: string
-}
-
-/* ────────────────────────── helpers ────────────────────────── */
-
-const AVATAR_COLORS = [
-  "bg-pink-400",
-  "bg-blue-400",
-  "bg-green-400",
-  "bg-purple-400",
-  "bg-amber-400",
-  "bg-teal-400",
-  "bg-red-400",
-  "bg-indigo-400",
-]
-
-function getAvatarColor(name: string) {
-  let hash = 0
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash)
-  }
-  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length]
-}
-
-function relativeTime(dateStr: string): string {
-  const now = Date.now()
-  const then = new Date(dateStr).getTime()
-  const diff = now - then
-
-  const seconds = Math.floor(diff / 1000)
-  if (seconds < 60) return "刚刚"
-
-  const minutes = Math.floor(seconds / 60)
-  if (minutes < 60) return `${minutes}分钟前`
-
-  const hours = Math.floor(minutes / 60)
-  if (hours < 24) return `${hours}小时前`
-
-  const days = Math.floor(hours / 24)
-  if (days < 30) return `${days}天前`
-
-  const months = Math.floor(days / 30)
-  if (months < 12) return `${months}个月前`
-
-  const years = Math.floor(months / 12)
-  return `${years}年前`
+  _count?: { likes: number; replies: number }
 }
 
 /* ────────────────────────── component ────────────────────────── */
@@ -109,6 +65,7 @@ export function ReviewSection() {
   const [formContent, setFormContent] = useState("")
   const [submitting, setSubmitting] = useState(false)
   const [formError, setFormError] = useState("")
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   // 展开/收起状态
   const [expanded, setExpanded] = useState(false)
@@ -148,8 +105,26 @@ export function ReviewSection() {
     setFormError("")
   }
 
+  const handleEmojiInsert = (emoji: string) => {
+    const ta = textareaRef.current
+    if (ta) {
+      const start = ta.selectionStart ?? formContent.length
+      const newContent = formContent.slice(0, start) + emoji + formContent.slice(start)
+      if (newContent.length <= 200) {
+        setFormContent(newContent)
+        // Move cursor after emoji
+        setTimeout(() => {
+          ta.focus()
+          ta.setSelectionRange(start + emoji.length, start + emoji.length)
+        }, 0)
+      }
+    } else {
+      const newContent = formContent + emoji
+      if (newContent.length <= 200) setFormContent(newContent)
+    }
+  }
+
   const handleSubmit = async () => {
-    // Client-side validation
     if (formContent.length < 5) {
       setFormError("评价内容至少5个字符")
       return
@@ -189,7 +164,6 @@ export function ReviewSection() {
       }
 
       const newReview: Review = await res.json()
-      // Prepend new review, keep all
       setReviews((prev) => [newReview, ...prev])
       setTotal((prev) => prev + 1)
       setAverageRating((prev) => {
@@ -205,6 +179,11 @@ export function ReviewSection() {
       setSubmitting(false)
     }
   }
+
+  const DELAY_CLASSES = [
+    "animate-delay-200", "animate-delay-300", "animate-delay-400",
+    "animate-delay-500", "animate-delay-600", "animate-delay-700",
+  ]
 
   return (
     <section className="bg-gradient-to-b from-orange-50/80 to-background px-4 py-20">
@@ -224,7 +203,6 @@ export function ReviewSection() {
 
         {/* Stats + Write Review Button */}
         <div className="animate-fade-up animate-delay-200 mb-10 flex flex-col items-center justify-between gap-4 sm:flex-row">
-          {/* Stats */}
           <div className="flex items-center gap-4">
             {!loading && (
               <>
@@ -269,13 +247,11 @@ export function ReviewSection() {
                 </DialogHeader>
 
                 <div className="space-y-4 py-2">
-                  {/* Star rating */}
                   <div className="space-y-2">
                     <Label>评分</Label>
                     <StarRating value={formRating} onChange={setFormRating} />
                   </div>
 
-                  {/* Location */}
                   <div className="space-y-2">
                     <Label htmlFor="review-location">城市</Label>
                     <Input
@@ -287,7 +263,6 @@ export function ReviewSection() {
                     />
                   </div>
 
-                  {/* Plan selection */}
                   <div className="space-y-2">
                     <Label>认养套餐</Label>
                     <Select value={formPlanName} onValueChange={(v) => setFormPlanName(v ?? "")}>
@@ -302,7 +277,7 @@ export function ReviewSection() {
                     </Select>
                   </div>
 
-                  {/* Content */}
+                  {/* Content + Emoji Picker */}
                   <div className="space-y-2">
                     <Label htmlFor="review-content">
                       评价内容
@@ -311,6 +286,7 @@ export function ReviewSection() {
                       </span>
                     </Label>
                     <Textarea
+                      ref={textareaRef}
                       id="review-content"
                       placeholder="说说你的认养体验吧（5-200字）"
                       value={formContent}
@@ -318,6 +294,10 @@ export function ReviewSection() {
                       maxLength={200}
                       className="min-h-24 resize-none"
                     />
+                    <div className="flex items-center">
+                      <EmojiPickerButton onEmojiSelect={handleEmojiInsert} />
+                      <span className="ml-2 text-xs text-muted-foreground">点击插入表情</span>
+                    </div>
                   </div>
 
                   {formError && (
@@ -365,62 +345,15 @@ export function ReviewSection() {
           <>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {(expanded ? reviews : reviews.slice(0, INITIAL_SHOW)).map((r, idx) => (
-                <Card
+                <ReviewCard
                   key={r.id}
-                  className={`card-hover animate-fade-up border-orange-100 transition-all duration-500 ${
-                    idx === 0
-                      ? "animate-delay-200"
-                      : idx === 1
-                        ? "animate-delay-300"
-                        : idx === 2
-                          ? "animate-delay-400"
-                          : idx === 3
-                            ? "animate-delay-500"
-                            : idx === 4
-                              ? "animate-delay-600"
-                              : "animate-delay-700"
-                  } ${r.id === newReviewId ? "animate-slide-in-from-top ring-2 ring-[#FF6B00]/30" : ""}`}
-                >
-                  <CardContent className="space-y-4 pt-6">
-                    {/* User info */}
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white shadow-md ${getAvatarColor(r.userName)}`}
-                      >
-                        {r.userName[0]}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="text-sm font-bold">{r.userName}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {r.location}
-                        </p>
-                      </div>
-                      <span className="shrink-0 text-xs text-muted-foreground">
-                        {relativeTime(r.createdAt)}
-                      </span>
-                    </div>
-
-                    {/* Stars */}
-                    <StarRating value={r.rating} readonly size="sm" />
-
-                    {/* Content */}
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      &ldquo;{r.content}&rdquo;
-                    </p>
-
-                    {/* Plan badge */}
-                    <Badge
-                      variant="secondary"
-                      className="bg-orange-50 text-[#FF6B00]"
-                    >
-                      {r.planName}
-                    </Badge>
-                  </CardContent>
-                </Card>
+                  review={r}
+                  isNew={r.id === newReviewId}
+                  className={`animate-fade-up ${DELAY_CLASSES[Math.min(idx, DELAY_CLASSES.length - 1)]}`}
+                />
               ))}
             </div>
 
-            {/* 展开/收起按钮 */}
             {reviews.length > INITIAL_SHOW && (
               <div className="mt-8 flex justify-center">
                 <Button

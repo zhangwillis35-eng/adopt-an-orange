@@ -1,12 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
+import { connection } from "next/server"
 import { z } from "zod"
 import { auth } from "@/lib/auth"
-import {
-  getReviews,
-  addReview,
-  getReviewCount,
-  getAverageRating,
-} from "@/services/review.service"
 
 const createReviewSchema = z.object({
   rating: z.number().int().min(1).max(5),
@@ -16,6 +11,9 @@ const createReviewSchema = z.object({
 })
 
 export async function GET(request: NextRequest) {
+  await connection()
+  const { getReviews, getReviewCount, getAverageRating } = await import("@/services/review.service")
+
   const { searchParams } = request.nextUrl
   const limitParam = searchParams.get("limit")
   const limit = limitParam ? parseInt(limitParam, 10) : undefined
@@ -47,6 +45,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    const { addReview } = await import("@/services/review.service")
     const review = await addReview({
       userId: session.user.id,
       userName: session.user.name || "匿名用户",
